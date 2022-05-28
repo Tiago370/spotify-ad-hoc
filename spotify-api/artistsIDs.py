@@ -34,7 +34,7 @@ def getArtistsIDs(token):
     artist_seed = '36QJpDe2go2KgaRleHCDTp'
     genre_seed = g.getRandomGenre()
     artistsIDs = []
-    while len(artistsIDs) < 20000:
+    while len(artistsIDs) < 40000:
         batch_artists = toExtractArtistsIDs(getRecommendations(tm.get_token(), artist_seed, genre_seed))
         artistsIDs.extend(batch_artists)
         artistsIDs = list(set(artistsIDs))
