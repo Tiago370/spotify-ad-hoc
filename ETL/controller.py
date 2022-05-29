@@ -9,12 +9,12 @@ class Spotify():
     def __init__(self, client, secret):
         self.client = client
         self.secret = secret
-        self.tokenTime = int(time.time())
+        self.tokenTime = 0
         self.token = ''
 
     def getToken(self):
         atual = int(time.time())
-        if atual - self.tokenTime < 3000:
+        if atual - self.tokenTime > 3000:
             try:
                 auth_response = requests.post('https://accounts.spotify.com/api/token', {
                 'grant_type': 'client_credentials',
