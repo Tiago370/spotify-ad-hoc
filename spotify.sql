@@ -22,7 +22,7 @@ CREATE TABLE track(
     name VARCHAR(100) NOT NULL,
     duration int NOT NULL,
     explicit BOOLEAN NOT NULL,
-    img VARCHAR(40) NOT NULL,
+    --img VARCHAR(40) NOT NULL,
     track_number smallint NOT NULL,
     album_id VARCHAR(22) NOT NULL
 );

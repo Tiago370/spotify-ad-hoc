@@ -91,11 +91,12 @@ if __name__ == "__main__":
     listaAlbums = list()
 
     for track in tracks:
-        listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit']))
+        listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum))
 
     for track in listaTracks:
-        track.printTracks(idAlbum)
-        
+        #track.printTracks()
+        track.insertTrack()
+
     for album in albums:
         artistas = list()
         for artista in album['artists']:
@@ -105,6 +106,4 @@ if __name__ == "__main__":
     #print(listaAlbums[0].existeAlbum("6nCJAxRvXmPkPiZo8Vh5ZG"))
     for album in listaAlbums:
         album.printAlbum()
-        #album.insertAlbum()
-
-
+        album.insertAlbum()

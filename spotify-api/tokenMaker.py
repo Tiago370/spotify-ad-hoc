@@ -25,3 +25,4 @@ def get_token():
     access_token = auth_response_data['access_token']
     time.sleep(0)
     return access_token
+print(get_token())

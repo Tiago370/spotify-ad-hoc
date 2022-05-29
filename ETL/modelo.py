@@ -4,6 +4,7 @@ class Album():
     def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
         self.id = id
         self.nome = nome
+        self.nome = nome.replace("'", "''")
         self.releaseDate = releaseDate
         self.totalTracks = totalTracks
         imgs = img.split('/')
@@ -47,27 +48,31 @@ class Album():
             return False
 
 class Tracks():
-    def __init__(self, id, nome, duracao, numero, explicito):
+    def __init__(self, id, nome, duracao, numero, explicito, idAlbum):
         self.id = id
         self.nome = nome
+        self.nome = nome.replace("'", "''")
         self.duracao = duracao
         self.numero = numero
         self.explicito = explicito
-        
+        self.idAlbum = idAlbum
+        self.config = cfg.Config()
 
-    def printTracks(self, idAlbum):
+    def printTracks(self):
         print(20* '--')
-        print('id: {}\nNome: {}\nDuracao: {}\nTrackNumber: {}\nExplicito: {}\nAlbumID: {}'.format(
-            self.id, self.nome, self.duracao, self.numero, self.explicito, idAlbum))
+        print('id: {}\nNome: {}\nDuracao: {}\nTrackNumber: {}\nExplicito: {}\nAlbumID: {}\n'.format(
+            self.id, self.nome, self.duracao, self.numero, self.explicito, self.idAlbum))
         
-    def insertTracks(self, idAlbum):
+    def insertTrack(self):
         #if (self.existeTracks(self.id)):
         #    return False
-        string_sql = "INSERT INTO tracks(id, name, duration_ms, track_number, explicit, albumID) VALUES('{}', '{}', '{}', {}, '{}')".format(self.id, self.nome, self.duracao, self.numero, self.explicito, idAlbum)
+        string_sql = "INSERT INTO track(id, name, duration, explicit, track_number, album_id) VALUES('"+self.id+"', '"+self.nome+"', "+str(self.duracao)+', '+str(self.explicito)+', '+str(self.numero)+", '"+self.idAlbum+"');"
         msg = self.config.alteraBD(string_sql, [])
         if (msg == 'sucesso'):
+            print('sucesso')
             return True
         else:
+            print('deu ruim')
             return False
 
     def existeTracks(self, id):
