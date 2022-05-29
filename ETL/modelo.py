@@ -15,8 +15,11 @@ class Album():
 
     def printAlbum(self):
         print(20* '--')
-        print('id: {}\nname: {}\nreleaseDate: {}\ntotalTracks: {}\nimg: {}\nqtdArtistas: {}\nartistas: {}\ntracks: {}'.format(
-            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas, self.artistas, self.tracks))
+        print('id: {}\nname: {}\nreleaseDate: {}\ntotalTracks: {}\nimg: {}\nqtdArtistas: {}\n\ntracks: {}'.format(
+            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas, self.tracks))
+        print('artistas:')
+        for artista in self.artistas:
+            print(artista)
         print(20* '--')
 
     def setTracks(self, tracks):

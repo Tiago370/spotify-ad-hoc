@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
     #print(listaAlbums[0].existeAlbum("6nCJAxRvXmPkPiZo8Vh5ZG"))
     for album in listaAlbums:
-        #album.printAlbum()
-        album.insertAlbum()
+        album.printAlbum()
+        #album.insertAlbum()
 
 
