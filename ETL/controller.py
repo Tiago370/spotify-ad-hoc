@@ -4,6 +4,7 @@ from numpy import select
 import time
 import requests
 import json
+from modelo import Album
 
 class Spotify():
     def __init__(self, client, secret):
@@ -46,8 +47,17 @@ class Spotify():
         return self.makeRequest('artists/{}'.format(idArtist))
 
     def getAlbums(self, idArtist):
-        # Implementar considerando offset
-        return self.makeRequest('artists/{}/albums?limit=10&offset=0'.format(idArtist))
+        offset = 0
+        completo = False
+        items = list()
+        while not completo:
+            resultado = self.makeRequest('artists/{}/albums?offset={}&limit=20&include_groups=album'.format(idArtist, offset))
+            items.extend(resultado['items'])
+            if not resultado['next']:
+                completo = True
+            else:
+                offset += 20
+        return items
 
     def getTracks(self, idAlbum):
         # Implementar considerando offset
@@ -62,6 +72,18 @@ if __name__ == "__main__":
     idArtist = '0TnOYISbd1XYRBk9myaseg'
     idAlbum = '4aawyAB9vmqN3uQ7FjRGTy'
 
-    print(sessao.getArtist(idArtist))
-    print(sessao.getAlbums(idArtist))
-    print(sessao.getTracks(idAlbum))
+    # print(sessao.getArtist(idArtist))
+    # print(sessao.getAlbums(idArtist))
+    albums = sessao.getAlbums(idArtist)
+    listaAlbums = list()
+
+    for album in albums:
+        artistas = list()
+        for artista in album['artists']:
+            artistas.append(artista['id'])
+        listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas)))
+
+    for album in listaAlbums:
+        album.printAlbum()
+
+
