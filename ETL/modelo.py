@@ -6,19 +6,19 @@ class Album():
         self.nome = nome
         self.releaseDate = releaseDate
         self.totalTracks = totalTracks
-        self.artistas = artistas
         self.img = img
         self.qtdArtistas = qtdArtistas
+        self.artistas = artistas
         self.tracks = list()
 
     def printAlbum(self):
         print(20* '--')
-        print('id: {}\nname: {}\nreleaseDate: {}\ntotalTracks: {}\nimg: {}\nqtdArtistas: {}\nartistas: {}'.format(
-            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas, self.artistas))
+        print('id: {}\nname: {}\nreleaseDate: {}\ntotalTracks: {}\nimg: {}\nqtdArtistas: {}\nartistas: {}\ntracks: {}'.format(
+            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas, self.artistas, self.tracks))
         print(20* '--')
 
-    def addTracks(self, track):
-        self.tracks.append(track)
+    def setTracks(self, tracks):
+        self.tracks = tracks
 
     def getTracks(self):
         return self.tracks
