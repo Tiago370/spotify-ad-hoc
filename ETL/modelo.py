@@ -1,4 +1,4 @@
-from config import Config
+import config as cfg
 
 class Album():
     def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
@@ -6,10 +6,12 @@ class Album():
         self.nome = nome
         self.releaseDate = releaseDate
         self.totalTracks = totalTracks
-        self.img = img
+        imgs = img.split('/')
+        self.img = imgs[len(imgs)-1]
         self.qtdArtistas = qtdArtistas
         self.artistas = artistas
         self.tracks = list()
+        self.config = cfg.Config()
 
     def printAlbum(self):
         print(20* '--')
@@ -24,13 +26,19 @@ class Album():
         return self.tracks
 
     def insertAlbum(self):
-        # Insere o album no banco
-        pass
+        #if (self.existeAlbum(self.id)):
+        #    return False
+        string_sql = "INSERT INTO album(id, name, release_date, qtd_artists, img) VALUES('{}', '{}', '{}', {}, '{}')".format(self.id, self.nome, self.releaseDate, self.qtdArtistas, self.img)
+        msg = self.config.alteraBD(string_sql, [])
+        if (msg == 'sucesso'):
+            return True
+        else:
+            return False
 
-    def existeAlbum(id):
-        string_sql = """SELECT COUNT(albumid) FROM esquema.albums WHERE albumid = %s"""
-        registros = Config.consultaBD(Config, string_sql, [id])
-        if ((registros[1][0][0]) != 0):
+    def existeAlbum(self, id):
+        string_sql = """SELECT COUNT(id) FROM album WHERE id = '{}'""".format(id)
+        registros = self.config.consultaBD(string_sql, [])
+        if (registros[1][0][0] > 0):
             return True
         else:
             return False

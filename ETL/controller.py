@@ -83,7 +83,9 @@ if __name__ == "__main__":
             artistas.append(artista['id'])
         listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas)))
 
+    #print(listaAlbums[0].existeAlbum("6nCJAxRvXmPkPiZo8Vh5ZG"))
     for album in listaAlbums:
-        album.printAlbum()
+        #album.printAlbum()
+        album.insertAlbum()
 
 
