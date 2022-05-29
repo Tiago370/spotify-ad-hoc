@@ -1,3 +1,5 @@
+from config import Config
+
 class Album():
     def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
         self.id = id
@@ -25,6 +27,10 @@ class Album():
         # Insere o album no banco
         pass
 
-    def existeAlbum(self):
-        # Confere  no banco se existe o album
-        pass
+    def existeAlbum(id):
+        string_sql = """SELECT COUNT(albumid) FROM esquema.albums WHERE albumid = %s"""
+        registros = Config.consultaBD(Config, string_sql, [id])
+        if ((registros[1][0][0]) != 0):
+            return True
+        else:
+            return False
