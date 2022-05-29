@@ -45,3 +45,35 @@ class Album():
             return True
         else:
             return False
+
+class Tracks():
+    def __init__(self, id, nome, duracao, numero, explicito):
+        self.id = id
+        self.nome = nome
+        self.duracao = duracao
+        self.numero = numero
+        self.explicito = explicito
+        
+
+    def printTracks(self, idAlbum):
+        print(20* '--')
+        print('id: {}\nNome: {}\nDuracao: {}\nTrackNumber: {}\nExplicito: {}\nAlbumID: {}'.format(
+            self.id, self.nome, self.duracao, self.numero, self.explicito, idAlbum))
+        
+    def insertTracks(self, idAlbum):
+        #if (self.existeTracks(self.id)):
+        #    return False
+        string_sql = "INSERT INTO tracks(id, name, duration_ms, track_number, explicit, albumID) VALUES('{}', '{}', '{}', {}, '{}')".format(self.id, self.nome, self.duracao, self.numero, self.explicito, idAlbum)
+        msg = self.config.alteraBD(string_sql, [])
+        if (msg == 'sucesso'):
+            return True
+        else:
+            return False
+
+    def existeTracks(self, id):
+        string_sql = """SELECT COUNT(id) FROM tracks WHERE id = '{}'""".format(id)
+        registros = self.config.consultaBD(string_sql, [])
+        if (registros[1][0][0] > 0):
+            return True
+        else:
+            return False

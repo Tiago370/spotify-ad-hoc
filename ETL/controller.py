@@ -4,7 +4,8 @@ from numpy import select
 import time
 import requests
 import json
-from modelo import Album
+from modelo import Album, Tracks
+
 
 class Spotify():
     def __init__(self, client, secret):
@@ -60,8 +61,17 @@ class Spotify():
         return items
 
     def getTracks(self, idAlbum):
-        # Implementar considerando offset
-        return self.makeRequest('albums/{}/tracks?limit=1&offset=0'.format(idAlbum))
+        offset = 0
+        completo = False
+        items = list()
+        while not completo:
+            resultado = self.makeRequest('albums/{}/tracks?limit=20&offset={}'.format(idAlbum, offset))
+            items.extend(resultado['items'])
+            if not resultado['next']:
+                completo = True
+            else:
+                offset += 20
+        return items
 
 if __name__ == "__main__":
     load_dotenv()
@@ -75,8 +85,17 @@ if __name__ == "__main__":
     # print(sessao.getArtist(idArtist))
     # print(sessao.getAlbums(idArtist))
     albums = sessao.getAlbums(idArtist)
+    tracks = sessao.getTracks(idAlbum)
+    
+    listaTracks = list()
     listaAlbums = list()
 
+    for track in tracks:
+        listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit']))
+
+    for track in listaTracks:
+        track.printTracks(idAlbum)
+        
     for album in albums:
         artistas = list()
         for artista in album['artists']:
