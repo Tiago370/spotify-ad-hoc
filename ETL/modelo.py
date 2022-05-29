@@ -1,4 +1,3 @@
-
 class Album():
     def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
         self.id = id
