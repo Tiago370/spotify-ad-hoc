@@ -1,12 +1,16 @@
 import config as cfg
 
 class Artista():
-    def __init__(self, id, nome, followers, popularity, img ):
+    def __init__(self, id, nome, followers, popularity, img):
         self.id = id
         self.nome= nome
         self.followers = followers
         self.popularity = popularity
         self.img = img
+        self.albums = list()
+    
+    def setAlbums(self, albums):
+        self.albums = albums
     
     def printArtista(self):
         print(20* '--')
@@ -80,7 +84,7 @@ class Album():
             return False
 
 class Tracks():
-    def __init__(self, id, nome, duracao, numero, explicito, idAlbum):
+    def __init__(self, id, nome, duracao, numero, explicito, idAlbum, artistas, qtdArtistas):
         self.id = id
         self.nome = nome
         self.nome = nome.replace("'", "''")
@@ -88,6 +92,8 @@ class Tracks():
         self.numero = numero
         self.explicito = explicito
         self.idAlbum = idAlbum
+        self.qtdArtistas = qtdArtistas
+        self.artistas = artistas
         self.config = cfg.Config()
 
     def printTracks(self):

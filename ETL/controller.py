@@ -45,34 +45,48 @@ class Spotify():
         return json_object
 
     def getArtist(self, idArtist):
-        resultado =  self.makeRequest('artists/{}'.format(idArtist))
-        return resultado
+        artista =  self.makeRequest('artists/{}'.format(idArtist))
+        return (Artista(artista["id"], artista["name"], artista["followers"], artista["popularity"], artista["images"]))
         
     def getAlbums(self, idArtist):
         offset = 0
         completo = False
         items = list()
+        listaAlbums = list()
         while not completo:
             resultado = self.makeRequest('artists/{}/albums?offset={}&limit=20&include_groups=album'.format(idArtist, offset))
             items.extend(resultado['items'])
+            for album in items:
+                artistas = list()
+                for artista in album['artists']:
+                    artistas.append(artista['id'])
+                listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas)))
+
             if not resultado['next']:
                 completo = True
             else:
                 offset += 20
-        return items
+        
+        return listaAlbums
 
     def getTracks(self, idAlbum):
         offset = 0
         completo = False
+        listaTracks = list()
         items = list()
         while not completo:
             resultado = self.makeRequest('albums/{}/tracks?limit=20&offset={}'.format(idAlbum, offset))
             items.extend(resultado['items'])
+            for track in items:
+                artistas = list()
+                for artista in track['artists']:
+                    artistas.append(artista['id'])
+                listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum, artistas, len(artistas)))
             if not resultado['next']:
                 completo = True
             else:
                 offset += 20
-        return items
+        return listaTracks
 
 if __name__ == "__main__":
     load_dotenv()
@@ -83,57 +97,23 @@ if __name__ == "__main__":
     idArtist = '0TnOYISbd1XYRBk9myaseg'
     idAlbum = '4aawyAB9vmqN3uQ7FjRGTy'
 
-    
-        
-    print(sessao.getArtist(idArtist))
-    # print(sessao.getAlbums(idArtist))
-    albums = sessao.getAlbums(idArtist)
     tracks = sessao.getTracks(idAlbum)
-    
-    
+
     listaTracks = list()
-    listaAlbums = list()
     listaArtistas = list()
 
     listaIdArtista = []
-    with open("./IDs/artists/artistsIDs_20047.txt") as file_in:
+    with open("./IDs/artists/teste.txt") as file_in:
         for line in file_in:
-            listaIdArtista.append(line) 
+            listaIdArtista.append(line)
 
-    # print(listaIdArtista)
+    for idArtista in listaIdArtista:
+        listaAlbums = list()
+        artista = sessao.getArtist(idArtista)
+        listaArtistas.append(artista)
+        albums = sessao.getAlbums(idArtista)
+        listaAlbums = sessao.getAlbums(idArtista)
+        for album in listaAlbums:
+            album.setTracks(sessao.getTracks(album.id))
 
-    
-    for ident in listaIdArtista:
-        print("teste: ")
-        print(ident)
-        artista = sessao.getArtist(ident)
-        print("teste: ")
-        print(artista)
-        teste = 'status'
-        if teste in artista:
-            pass
-        else:
-            listaArtistas.append(Artista(artista["id"], artista["name"], artista["followers"], artista["popularity"], artista["images"]))
-
-    for track in tracks:
-        listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum))
-    
-    for track in listaTracks:
-        #track.printTracks()
-        # track.insertTrack()
-        pass
-        
-
-   
-
-    for album in albums:
-        artistas = list()
-        for artista in album['artists']:
-            artistas.append(artista['id'])
-        listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas)))
-
-    #print(listaAlbums[0].existeAlbum("6nCJAxRvXmPkPiZo8Vh5ZG"))
-    for album in listaAlbums:
-        # album.printAlbum()
-        album.insertAlbum()
     
