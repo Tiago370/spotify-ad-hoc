@@ -1,5 +1,37 @@
 import config as cfg
 
+class Artista():
+    def __init__(self, id, nome, followers, popularity, img ):
+        self.id = id
+        self.nome= nome
+        self.followers = followers
+        self.popularity = popularity
+        self.img = img
+    
+    def printArtista(self):
+        print(20* '--')
+        print('id: {}\nNome: {}\nSeguidores: {}\nPopularidade: {}\nImagem: {}'.format(
+            self.id, self.nome, self.followers, self.popularity, self.img
+        ))
+        print(20* '--')
+    
+    def insertArtista(self):
+        string_sql = "INSERT INTO artista(id, name, followersp, popularity, img) VALUES('{}', '{}', '{}', {}, '{}')".format(
+             self.id, self.nome, self.followers, self.popularity, self.img)
+        msg = self.config.alteraBD(string_sql, [])
+        if (msg == 'sucesso'):
+            return True
+        else:
+            return False
+
+    def existeArtista(self, idArtista):
+        string_sql = """SELECT COUNT(id) FROM album WHERE id = '{}'""".format(idArtista)
+        registros = self.config.consultaBD(string_sql, [])
+        if (registros[1][0][0] > 0):
+            return True
+        else:
+            return False
+
 class Album():
     def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
         self.id = id
@@ -17,7 +49,7 @@ class Album():
     def printAlbum(self):
         print(20* '--')
         print('id: {}\nname: {}\nreleaseDate: {}\ntotalTracks: {}\nimg: {}\nqtdArtistas: {}\n\ntracks: {}'.format(
-            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas, len(self.tracks)))
+            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas, self.tracks))
         print('artistas:')
         for artista in self.artistas:
             print(artista)
@@ -48,7 +80,7 @@ class Album():
             return False
 
 class Tracks():
-    def __init__(self, id, nome, duracao, numero, explicito, idAlbum, artistas, qtdArtistas):
+    def __init__(self, id, nome, duracao, numero, explicito, idAlbum):
         self.id = id
         self.nome = nome
         self.nome = nome.replace("'", "''")
@@ -56,8 +88,6 @@ class Tracks():
         self.numero = numero
         self.explicito = explicito
         self.idAlbum = idAlbum
-        self.artistas = artistas
-        self.qtdArtistas = qtdArtistas
         self.config = cfg.Config()
 
     def printTracks(self):
