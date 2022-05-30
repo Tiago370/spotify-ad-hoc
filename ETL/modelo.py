@@ -1,23 +1,22 @@
 import config as cfg
 
 class Artista():
-    def __init__(self, id, nome, followers, popularity, img):
+    def __init__(self, id, nome, followers, popularity, img, genres):
         self.id = id
         self.nome= nome
         self.followers = followers
         self.popularity = popularity
         self.img = img
+        self.genres = genres
         self.albums = list()
     
     def setAlbums(self, albums):
         self.albums = albums
     
     def printArtista(self):
-        print(20* '--')
-        print('id: {}\nNome: {}\nSeguidores: {}\nPopularidade: {}\nImagem: {}'.format(
-            self.id, self.nome, self.followers, self.popularity, self.img
+        print('[ARTIST]-----------\nid:{}\nNome: {}\nSeguidores: {}\nPopularidade: {}\nImagem: {}\nGenres: {}\nAlbums: '.format(
+            self.id, self.nome, self.followers, self.popularity, self.genres, self.img
         ))
-        print(20* '--')
     
     def insertArtista(self):
         string_sql = "INSERT INTO artista(id, name, followersp, popularity, img) VALUES('{}', '{}', '{}', {}, '{}')".format(
@@ -40,24 +39,18 @@ class Album():
     def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
         self.id = id
         self.nome = nome
-        self.nome = nome.replace("'", "''")
+        self.nome = nome
         self.releaseDate = releaseDate
         self.totalTracks = totalTracks
-        imgs = img.split('/')
-        self.img = imgs[len(imgs)-1]
+        self.img = img
         self.qtdArtistas = qtdArtistas
         self.artistas = artistas
         self.tracks = list()
         self.config = cfg.Config()
 
     def printAlbum(self):
-        print(20* '--')
-        print('id: {}\nname: {}\nreleaseDate: {}\ntotalTracks: {}\nimg: {}\nqtdArtistas: {}\n\ntracks: {}'.format(
-            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas, self.tracks))
-        print('artistas:')
-        for artista in self.artistas:
-            print(artista)
-        print(20* '--')
+        print('\t[ALBUM]-----------\n\tid: {}\n\tname: {}\n\treleaseDate: {}\n\ttotalTracks: {}\n\timg: {}\n\tqtdArtistas: {}\n\ttracks: '.format(
+            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas))
 
     def setTracks(self, tracks):
         self.tracks = tracks
@@ -87,7 +80,6 @@ class Tracks():
     def __init__(self, id, nome, duracao, numero, explicito, idAlbum, artistas, qtdArtistas):
         self.id = id
         self.nome = nome
-        self.nome = nome.replace("'", "''")
         self.duracao = duracao
         self.numero = numero
         self.explicito = explicito
@@ -96,10 +88,10 @@ class Tracks():
         self.artistas = artistas
         self.config = cfg.Config()
 
-    def printTracks(self):
-        print(20* '--')
-        print('id: {}\nNome: {}\nDuracao: {}\nTrackNumber: {}\nExplicito: {}\nAlbumID: {}\n'.format(
-            self.id, self.nome, self.duracao, self.numero, self.explicito, self.idAlbum))
+    def printTrack(self):
+        
+        print('\t\t[TRACK]-----------\n\t\tid: {}\n\t\tNome: {}\n\t\tDuracao: {}\n\t\tTrackNumber: {}\n\t\tExplicito: {}\n\t\tAlbumID: {}\n\t\tQtdArtistas: {}\n\t\tArtistas: {}\n'.format(
+            self.id, self.nome, self.duracao, self.numero, self.explicito, self.idAlbum, self.qtdArtistas, self.artistas))
         
     def insertTrack(self):
         #if (self.existeTracks(self.id)):

@@ -46,8 +46,11 @@ class Spotify():
 
     def getArtist(self, idArtist):
         artista =  self.makeRequest('artists/{}'.format(idArtist))
-        return (Artista(artista["id"], artista["name"], artista["followers"], artista["popularity"], artista["images"]))
-        
+        imagens = list()
+        for image in artista['images']:
+            imagens.append(image['url'])
+        return Artista(artista['id'], artista['name'], artista['followers']['total'], artista['popularity'], imagens, artista['genres'])
+
     def getAlbums(self, idArtist):
         offset = 0
         completo = False
@@ -57,10 +60,13 @@ class Spotify():
             resultado = self.makeRequest('artists/{}/albums?offset={}&limit=20&include_groups=album'.format(idArtist, offset))
             items.extend(resultado['items'])
             for album in items:
+                imagens = list()
+                for image in album['images']:
+                    imagens.append(image['url'])
                 artistas = list()
                 for artista in album['artists']:
                     artistas.append(artista['id'])
-                listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas)))
+                listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, imagens, len(artistas)))
 
             if not resultado['next']:
                 completo = True
@@ -99,15 +105,15 @@ if __name__ == "__main__":
 
     tracks = sessao.getTracks(idAlbum)
 
-    listaTracks = list()
     listaArtistas = list()
 
-    listaIdArtista = []
+    listaIdArtista = list()
     with open("./IDs/artists/teste.txt") as file_in:
         for line in file_in:
-            listaIdArtista.append(line)
+            listaIdArtista.append(line.strip())
 
-    for idArtista in listaIdArtista:
+    for index, idArtista in enumerate(listaIdArtista):
+        print('[{}] -- {} --INICIO--'.format(index, idArtist))
         listaAlbums = list()
         artista = sessao.getArtist(idArtista)
         listaArtistas.append(artista)
@@ -115,5 +121,12 @@ if __name__ == "__main__":
         listaAlbums = sessao.getAlbums(idArtista)
         for album in listaAlbums:
             album.setTracks(sessao.getTracks(album.id))
+        artista.setAlbums(listaAlbums)
+        print('[{}] -- {} --FIM--'.format(index, idArtist))
 
-    
+    # for artista in listaArtistas:
+    #     artista.printArtista()
+    #     for album in artista.albums:
+    #         album.printAlbum()
+    #         for track in album.tracks:
+    #             track.printTrack()

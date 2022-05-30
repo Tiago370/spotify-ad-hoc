@@ -1,0 +1,301 @@
+[ARTIST]-----------
+id:0lAWpj5szCSwM4rUMHYmrr
+Nome: Måneskin
+Seguidores: 6010538
+Popularidade: 78
+Imagem: ['indie rock italiano', 'italian pop']
+Genres: https://i.scdn.co/image/ab6761610000e5eb7d663486ca2669469217d194
+Albums: 
+        [ALBUM]-----------
+        id: 7KF1Ain9mYYlg5M46g0i4A
+        name: Teatro d''ira - Vol. I
+        releaseDate: 2021-03-19
+        totalTracks: 8
+        img: ab67616d0000b2735aa05015cfa7bd2943c29b21
+        qtdArtistas: 1
+        tracks: 
+                [TRACK]-----------
+                id: 776AftMmFFAWUIEAb3lHhw
+                Nome: ZITTI E BUONI
+                Duracao: 194786
+                TrackNumber: 1
+                Explicito: True
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 7HMz8o0m7ASQ3ImFPfhWTY
+                Nome: CORALINE
+                Duracao: 300413
+                TrackNumber: 2
+                Explicito: False
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 1ITV1k9laGrWUpagayejMQ
+                Nome: LIVIDI SUI GOMITI
+                Duracao: 165786
+                TrackNumber: 3
+                Explicito: True
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 4pt5fDVTg5GhEvEtlz9dKk
+                Nome: I WANNA BE YOUR SLAVE
+                Duracao: 173346
+                TrackNumber: 4
+                Explicito: True
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 2uKWInHih8UkVBwgH6zuUm
+                Nome: IN NOME DEL PADRE
+                Duracao: 219853
+                TrackNumber: 5
+                Explicito: True
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 3ZeyEvTgSlKajHc0fckgZT
+                Nome: FOR YOUR LOVE
+                Duracao: 230706
+                TrackNumber: 6
+                Explicito: True
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 2l7V3AuTxGuswKjGovaSEv
+                Nome: LA PAURA DEL BUIO
+                Duracao: 209786
+                TrackNumber: 7
+                Explicito: False
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 6Vfo6O3hk38vDcSpazNo3p
+                Nome: VENT'ANNI
+                Duracao: 253586
+                TrackNumber: 8
+                Explicito: False
+                AlbumID: 7KF1Ain9mYYlg5M46g0i4A
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+        [ALBUM]-----------
+        id: 44a7Wk3Jh2JGVhjcFYWozj
+        name: Il ballo della vita
+        releaseDate: 2018-10-26
+        totalTracks: 12
+        img: ab67616d0000b273dbc892b8194e35ca3524e767
+        qtdArtistas: 1
+        tracks: 
+                [TRACK]-----------
+                id: 7pgF8R3LBSoYGR4JtN9fTn
+                Nome: New Song
+                Duracao: 213720
+                TrackNumber: 1
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 3590AAEoqH50z4UmhMIY85
+                Nome: Torna a casa
+                Duracao: 230666
+                TrackNumber: 2
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 36ONZ2CvV8KsLPapNPGTqa
+                Nome: L'altra dimensione
+                Duracao: 126706
+                TrackNumber: 3
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 0njCMF5v4zYAtNe3tkaRSC
+                Nome: Sh*t Blvd
+                Duracao: 202666
+                TrackNumber: 4
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 7t3fuKd5h73oppjIgkxZ25
+                Nome: Fear for Nobody
+                Duracao: 150826
+                TrackNumber: 5
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 1ABG6ke9SdUK9YayVafbcX
+                Nome: Le parole lontane
+                Duracao: 204933
+                TrackNumber: 6
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 7lMTjV6AkHGVdQpu3fLn48
+                Nome: Immortale (feat. Vegas Jones)
+                Duracao: 151186
+                TrackNumber: 7
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 2
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr', '4b3MWJACM6T1QwGKoFe7pp']
+
+                [TRACK]-----------
+                id: 6v4QuZeVN7Z3gq1goSRbfc
+                Nome: Lasciami stare
+                Duracao: 169426
+                TrackNumber: 8
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 2Du09hJBFkE49xA4JqWvXS
+                Nome: Are You Ready?
+                Duracao: 153946
+                TrackNumber: 9
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 3FjZBgicqgvLsxs1u9632V
+                Nome: Close to the Top
+                Duracao: 138266
+                TrackNumber: 10
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 4HfPwYsjGAOWtwVvYPBAad
+                Nome: Niente da dire
+                Duracao: 156520
+                TrackNumber: 11
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 1aX0Ki80LFzzhqxqRlqbAV
+                Nome: Morirò da Re
+                Duracao: 157880
+                TrackNumber: 12
+                Explicito: False
+                AlbumID: 44a7Wk3Jh2JGVhjcFYWozj
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+        [ALBUM]-----------
+        id: 2qJw6w5XwQO0PQlSWPu7Tw
+        name: Chosen
+        releaseDate: 2017-12-08
+        totalTracks: 7
+        img: ab67616d0000b273fa0ab3a28b5c52d8a5f97045
+        qtdArtistas: 1
+        tracks: 
+                [TRACK]-----------
+                id: 2lDgdWIGLYuk74pDeRPgPF
+                Nome: Chosen
+                Duracao: 162013
+                TrackNumber: 1
+                Explicito: False
+                AlbumID: 2qJw6w5XwQO0PQlSWPu7Tw
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 01GZjSSjSSpvTnDNdR8r3Y
+                Nome: Recovery
+                Duracao: 175746
+                TrackNumber: 2
+                Explicito: False
+                AlbumID: 2qJw6w5XwQO0PQlSWPu7Tw
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 5HgZU8DoSWLvs1dWBvXYJt
+                Nome: Vengo dalla luna
+                Duracao: 184386
+                TrackNumber: 3
+                Explicito: False
+                AlbumID: 2qJw6w5XwQO0PQlSWPu7Tw
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 3Wrjm47oTz2sjIgck11l5e
+                Nome: Beggin'
+                Duracao: 211560
+                TrackNumber: 4
+                Explicito: False
+                AlbumID: 2qJw6w5XwQO0PQlSWPu7Tw
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 6D2tOVX5MMl8jNVkwsFaWg
+                Nome: Let's Get It Started
+                Duracao: 146813
+                TrackNumber: 5
+                Explicito: False
+                AlbumID: 2qJw6w5XwQO0PQlSWPu7Tw
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 4AIatGjGyVipeEAzCMTqOg
+                Nome: Somebody Told Me
+                Duracao: 161040
+                TrackNumber: 6
+                Explicito: False
+                AlbumID: 2qJw6w5XwQO0PQlSWPu7Tw
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
+
+                [TRACK]-----------
+                id: 5AVPuxGEBlOaSsWDOh0OE7
+                Nome: You Need Me, I Don't Need You
+                Duracao: 210773
+                TrackNumber: 7
+                Explicito: False
+                AlbumID: 2qJw6w5XwQO0PQlSWPu7Tw
+                QtdArtistas: 1
+                Artistas: ['0lAWpj5szCSwM4rUMHYmrr']
