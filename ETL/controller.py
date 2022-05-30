@@ -85,23 +85,30 @@ if __name__ == "__main__":
     # print(sessao.getArtist(idArtist))
     # print(sessao.getAlbums(idArtist))
     albums = sessao.getAlbums(idArtist)
-    tracks = sessao.getTracks(idAlbum)
     
-    listaTracks = list()
+    
+    
     listaAlbums = list()
 
-    for track in tracks:
-        listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum))
 
-    for track in listaTracks:
+    #for track in listaTracks:
         #track.printTracks()
-        track.insertTrack()
+    #    track.insertTrack()
 
     for album in albums:
         artistas = list()
         for artista in album['artists']:
             artistas.append(artista['id'])
-        listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas)))
+        objAlbum = Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas))
+        listaAlbums.append(objAlbum)
+        listaTracks = list()
+        tracks = sessao.getTracks(album['id'])
+        for track in tracks:
+            artistas = list()
+            for artista in track['artists']:
+                artistas.append(artista['id'])
+            listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum, artistas, len(artistas)))
+        objAlbum.setTracks(listaTracks)
 
     #print(listaAlbums[0].existeAlbum("6nCJAxRvXmPkPiZo8Vh5ZG"))
     for album in listaAlbums:
