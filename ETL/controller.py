@@ -6,7 +6,6 @@ import requests
 import json
 from modelo import Album, Tracks
 
-
 class Spotify():
     def __init__(self, client, secret):
         self.client = client
@@ -51,27 +50,43 @@ class Spotify():
         offset = 0
         completo = False
         items = list()
+        listaAlbums = list()
         while not completo:
             resultado = self.makeRequest('artists/{}/albums?offset={}&limit=20&include_groups=album'.format(idArtist, offset))
             items.extend(resultado['items'])
+            for album in items:
+                artistas = list()
+                for artista in album['artists']:
+                    artistas.append(artista['id'])
+                listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas)))
+
             if not resultado['next']:
                 completo = True
             else:
                 offset += 20
-        return items
+        
+        return listaAlbums
 
     def getTracks(self, idAlbum):
         offset = 0
         completo = False
+        listaTracks = list()
         items = list()
         while not completo:
             resultado = self.makeRequest('albums/{}/tracks?limit=20&offset={}'.format(idAlbum, offset))
             items.extend(resultado['items'])
+            for track in items:
+                artistas = list()
+                for artista in track['artists']:
+                    artistas.append(artista['id'])
+                listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum, artistas, len(artistas)))
+
             if not resultado['next']:
                 completo = True
             else:
                 offset += 20
-        return items
+
+        return listaTracks
 
 if __name__ == "__main__":
     load_dotenv()
@@ -82,33 +97,10 @@ if __name__ == "__main__":
     idArtist = '0TnOYISbd1XYRBk9myaseg'
     idAlbum = '4aawyAB9vmqN3uQ7FjRGTy'
 
-    # print(sessao.getArtist(idArtist))
-    # print(sessao.getAlbums(idArtist))
-    albums = sessao.getAlbums(idArtist)
-    
-    
-    
-    listaAlbums = list()
+    listaAlbums = sessao.getAlbums(idArtist)
 
-
-    #for track in listaTracks:
-        #track.printTracks()
-    #    track.insertTrack()
-
-    for album in albums:
-        artistas = list()
-        for artista in album['artists']:
-            artistas.append(artista['id'])
-        objAlbum = Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, album['images'][0]['url'], len(artistas))
-        listaAlbums.append(objAlbum)
-        listaTracks = list()
-        tracks = sessao.getTracks(album['id'])
-        for track in tracks:
-            artistas = list()
-            for artista in track['artists']:
-                artistas.append(artista['id'])
-            listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum, artistas, len(artistas)))
-        objAlbum.setTracks(listaTracks)
+    for album in listaAlbums:
+        album.setTracks(sessao.getTracks(album.id))
 
     #print(listaAlbums[0].existeAlbum("6nCJAxRvXmPkPiZo8Vh5ZG"))
     for album in listaAlbums:
