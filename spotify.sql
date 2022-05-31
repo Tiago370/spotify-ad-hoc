@@ -1,9 +1,9 @@
 CREATE TABLE artist(
-	id VARCHAR(22) PRIMARY KEY,
-	name VARCHAR(100) NOT NULL,
-	followers int NOT NULL,
-	popularity smallint NOT NULL,
-	img VARCHAR(40) NOT NULL
+    id VARCHAR(22) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    followers int NOT NULL,
+    popularity smallint NOT NULL,
+    img VARCHAR(40) NOT NULL
 );
 -- SELECT * FROM artist;
 CREATE TABLE album(

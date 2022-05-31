@@ -1,4 +1,4 @@
-import config as cfg
+from config import config
 
 class Artista():
     def __init__(self, id, nome, followers, popularity, img, genres):
@@ -9,23 +9,20 @@ class Artista():
         self.img = img
         self.genres = genres
         self.albums = list()
-    
+
     def setAlbums(self, albums):
         self.albums = albums
     
     def printArtista(self):
         print('[ARTIST]-----------\nid:{}\nNome: {}\nSeguidores: {}\nPopularidade: {}\nImagem: {}\nGenres: {}\nAlbums: '.format(
-            self.id, self.nome, self.followers, self.popularity, self.genres, self.img
+            self.id, self.nome, self.followers, self.popularity, self.img, self.genres
         ))
     
     def insertArtista(self):
-        string_sql = "INSERT INTO artista(id, name, followersp, popularity, img) VALUES('{}', '{}', '{}', {}, '{}')".format(
-             self.id, self.nome, self.followers, self.popularity, self.img)
-        msg = self.config.alteraBD(string_sql, [])
-        if (msg == 'sucesso'):
-            return True
-        else:
-            return False
+        string_sql = 'INSERT INTO public.artist (id, name, followers, popularity, img) VALUES (%s, %s, %s, %s, %s)'
+        novo_registro = (self.id, self.nome, self.followers, self.popularity, self.img)
+        return config.alteraBD(config, string_sql, novo_registro)
+
 
     def existeArtista(self, idArtista):
         string_sql = """SELECT COUNT(id) FROM album WHERE id = '{}'""".format(idArtista)
@@ -39,14 +36,13 @@ class Album():
     def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
         self.id = id
         self.nome = nome
-        self.nome = nome
         self.releaseDate = releaseDate
         self.totalTracks = totalTracks
         self.img = img
         self.qtdArtistas = qtdArtistas
         self.artistas = artistas
         self.tracks = list()
-        self.config = cfg.Config()
+        # self.config = config.Config()
 
     def printAlbum(self):
         print('\t[ALBUM]-----------\n\tid: {}\n\tname: {}\n\treleaseDate: {}\n\ttotalTracks: {}\n\timg: {}\n\tqtdArtistas: {}\n\ttracks: '.format(
@@ -86,10 +82,9 @@ class Tracks():
         self.idAlbum = idAlbum
         self.qtdArtistas = qtdArtistas
         self.artistas = artistas
-        self.config = cfg.Config()
+        # self.config = cfg.Config()
 
     def printTrack(self):
-        
         print('\t\t[TRACK]-----------\n\t\tid: {}\n\t\tNome: {}\n\t\tDuracao: {}\n\t\tTrackNumber: {}\n\t\tExplicito: {}\n\t\tAlbumID: {}\n\t\tQtdArtistas: {}\n\t\tArtistas: {}\n'.format(
             self.id, self.nome, self.duracao, self.numero, self.explicito, self.idAlbum, self.qtdArtistas, self.artistas))
         

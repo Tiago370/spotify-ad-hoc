@@ -6,7 +6,6 @@ import requests
 import json
 from modelo import Album, Tracks, Artista
 
-
 class Spotify():
     def __init__(self, client, secret):
         self.client = client
@@ -105,7 +104,7 @@ if __name__ == "__main__":
         for line in file_in:
             listaIdArtista.append(line.strip())
     
-   # listaIdArtista = ['5zNOI87gG4RttFmYAZWaxQ']
+    # listaIdArtista = ['5zNOI87gG4RttFmYAZWaxQ']
 
     for index, idArtista in enumerate(listaIdArtista):
         print('[{}] -- {} --INICIO--'.format(index, idArtista))
@@ -118,10 +117,13 @@ if __name__ == "__main__":
             # album.printAlbum()
             album.setTracks(sessao.getTracks(album.id))
         artista.setAlbums(listaAlbums)
+        print(artista.insertArtista())
         print('[{}] -- {} --FIM--'.format(index, idArtista))
 
     # for artista in listaArtistas:
     #     artista.printArtista()
+    #     print('AQUI')
+    #     print(artista.insertArtista())
     #     for album in artista.albums:
     #         album.printAlbum()
     #         for track in album.tracks:
