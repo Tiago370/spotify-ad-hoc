@@ -12,7 +12,7 @@ class Spotify():
         self.client = client
         self.secret = secret
         self.tokenTime = 0
-        self.token = ''
+        self.token = self.getToken()
 
     def getToken(self):
         atual = int(time.time())
@@ -54,9 +54,8 @@ class Spotify():
         completo = False
         items = list()
         listaAlbums = list()
-        qtd = 0
-        while not completo or qtd > 5:
-            resultado = self.makeRequest('artists/{}/albums?offset={}&limit=15&include_groups=album'.format(idArtist, offset))
+        while not completo:
+            resultado = self.makeRequest('artists/{}/albums?offset={}&limit=20&include_groups=album'.format(idArtist, offset))
             items.extend(resultado['items'])
             for album in items:
                 imagem = album['images'][0]['url'] if len(album['images']) > 0 else ''
@@ -64,11 +63,10 @@ class Spotify():
                 for artista in album['artists']:
                     artistas.append(artista['id'])
                 listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, imagem, len(artistas)))
-            # print(resultado['next'])
+            print(resultado['next'])
             if not resultado['next']:
                 completo = True
             else:
-                completo = True
                 offset += 20
         return listaAlbums
 
@@ -78,7 +76,7 @@ class Spotify():
         listaTracks = list()
         items = list()
         while not completo:
-            resultado = self.makeRequest('albums/{}/tracks?limit=15&offset={}'.format(idAlbum, offset))
+            resultado = self.makeRequest('albums/{}/tracks?limit=20&offset={}'.format(idAlbum, offset))
             items.extend(resultado['items'])
             for track in items:
                 artistas = list()
@@ -88,7 +86,6 @@ class Spotify():
             if not resultado['next']:
                 completo = True
             else:
-                completo = True
                 offset += 20
         return listaTracks
 
@@ -97,32 +94,8 @@ if __name__ == "__main__":
     client = os.getenv('CLIENT')
     secret = os.getenv('SECRET')
     sessao = Spotify(client, secret)
-
-    listaArtistas = list()
-    listaIdArtista = list()
-
-    with open("teste.txt") as file_in:
-        for line in file_in:
-            listaIdArtista.append(line.strip())
+    albums = sessao.getAlbums('5zNOI87gG4RttFmYAZWaxQ')
     
-   # listaIdArtista = ['5zNOI87gG4RttFmYAZWaxQ']
-
-    for index, idArtista in enumerate(listaIdArtista):
-        print('[{}] -- {} --INICIO--'.format(index, idArtista))
-        artista = sessao.getArtist(idArtista)
-        listaArtistas.append(artista)
-        listaAlbums = sessao.getAlbums(idArtista)
-        # print('AQUI')
-        # print(len(listaAlbums))
-        for album in listaAlbums:
-            # album.printAlbum()
-            album.setTracks(sessao.getTracks(album.id))
-        artista.setAlbums(listaAlbums)
-        print('[{}] -- {} --FIM--'.format(index, idArtista))
-
-    # for artista in listaArtistas:
-    #     artista.printArtista()
-    #     for album in artista.albums:
-    #         album.printAlbum()
-    #         for track in album.tracks:
-    #             track.printTrack()
+    for album in albums:
+        album.printAlbum()
+    print(len(albums))

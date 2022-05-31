@@ -3,7 +3,7 @@ import config as cfg
 class Artista():
     def __init__(self, id, nome, followers, popularity, img, genres):
         self.id = id
-        self.nome= nome
+        self.nome = nome
         self.followers = followers
         self.popularity = popularity
         self.img = img
