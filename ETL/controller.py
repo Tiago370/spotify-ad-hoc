@@ -4,7 +4,7 @@ from numpy import select
 import time
 import requests
 import json
-from modelo import Album, Tracks, Artista
+from modelo import Album, Track, Artist
 
 class Spotify():
     def __init__(self, client, secret):
@@ -46,7 +46,7 @@ class Spotify():
     def getArtist(self, idArtist):
         artista =  self.makeRequest('artists/{}'.format(idArtist))
         imagem = artista['images'][0]['url'] if len(artista['images']) > 0 else ''
-        return Artista(artista['id'], artista['name'], artista['followers']['total'], artista['popularity'], imagem, artista['genres'])
+        return Artist(artista['id'], artista['name'], artista['followers']['total'], artista['popularity'], imagem, artista['genres'])
 
     def getAlbums(self, idArtist):
         offset = 0
@@ -61,9 +61,12 @@ class Spotify():
                 imagem = album['images'][0]['url'] if len(album['images']) > 0 else ''
                 artistas = list()
                 for artista in album['artists']:
+                    # Se nao existe o artista ele insere
+                    if not Artist.existeArtista(artista['id']):
+                        objArtista = self.getArtist(artista['id'])
+                        objArtista.insertArtista()
                     artistas.append(artista['id'])
                 listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, imagem, len(artistas)))
-            # print(resultado['next'])
             if not resultado['next']:
                 completo = True
             else:
@@ -82,8 +85,12 @@ class Spotify():
             for track in items:
                 artistas = list()
                 for artista in track['artists']:
+                    # Se nao existe o artista ele insere
+                    if not Artist.existeArtista(artista['id']):
+                        objArtista = self.getArtist(artista['id'])
+                        objArtista.insertArtista()
                     artistas.append(artista['id'])
-                listaTracks.append(Tracks(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum, artistas, len(artistas)))
+                listaTracks.append(Track(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum, artistas, len(artistas)))
             if not resultado['next']:
                 completo = True
             else:

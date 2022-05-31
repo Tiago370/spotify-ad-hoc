@@ -36,17 +36,26 @@ class config:
 
 
     def consultaBD(self, stringSQL, valores):
+
         # iniciar a conexo vazia
         conn = None
         try:
+
             # abrir a conexão
-            conexao=psycopg2.connect(self.dadosconexao)
+            conexao=psycopg2.connect(config.setParametros(self).dadosconexao)
+            
             # abrir a sessão transação começa aqui
             sessao = conexao.cursor()
+
             # Executor o comando em memoria RAM
             sessao.execute(stringSQL, valores)
+
             registros = sessao.fetchall()
             colnames = [desc[0] for desc in sessao.description]
+
+            # Comitar no hanco
+            # conexao.commit()
+
             # Encerror a sessão
             sessao.close()
 

@@ -1,6 +1,6 @@
 from config import config
 
-class Artista():
+class Artist():
     def __init__(self, id, nome, followers, popularity, img, genres):
         self.id = id
         self.nome = nome
@@ -19,14 +19,17 @@ class Artista():
         ))
     
     def insertArtista(self):
-        string_sql = 'INSERT INTO public.artist (id, name, followers, popularity, img) VALUES (%s, %s, %s, %s, %s)'
-        novo_registro = (self.id, self.nome, self.followers, self.popularity, self.img)
-        return config.alteraBD(config, string_sql, novo_registro)
+        if not Artist.existeArtista(self.id):
+            string_sql = 'INSERT INTO public.artist (id, name, followers, popularity, img) VALUES (%s, %s, %s, %s, %s)'
+            novo_registro = (self.id, self.nome, self.followers, self.popularity, self.img)
+            return config.alteraBD(config, string_sql, novo_registro)
+        else:
+            return 'Existe Artista'
 
-    def existeArtista(self, idArtista):
-        string_sql = """SELECT COUNT(id) FROM album WHERE id = '{}'""".format(idArtista)
-        registros = self.config.consultaBD(string_sql, [])
-        if (registros[1][0][0] > 0):
+    def existeArtista(id):
+        string_sql = """SELECT COUNT(id) FROM public.artist WHERE id = %s"""
+        registros = config.consultaBD(config, string_sql, [id])
+        if ((registros[1][0][0]) != 0):
             return True
         else:
             return False
@@ -41,12 +44,14 @@ class Album():
         self.qtdArtistas = qtdArtistas
         self.artistas = artistas
         self.tracks = list()
-        
 
     def insertAlbum(self):
-        string_sql = 'INSERT INTO public.album (id, name, release_date, qtd_artists, qtd_tracks, img) VALUES (%s, %s, %s, %s, %s, %s)'
-        novo_registro = (self.id, self.nome, self.releaseDate, self.qtdArtistas, self.totalTracks, self.img)
-        return config.alteraBD(config, string_sql, novo_registro)
+        if not Album.existeAlbum(self.id):
+            string_sql = 'INSERT INTO public.album (id, name, release_date, qtd_artists, qtd_tracks, img) VALUES (%s, %s, %s, %s, %s, %s)'
+            novo_registro = (self.id, self.nome, self.releaseDate, self.qtdArtistas, self.totalTracks, self.img)
+            return config.alteraBD(config, string_sql, novo_registro)
+        else:
+            return 'Existe Album'
 
     def printAlbum(self):
         print('\t[ALBUM]-----------\n\tid: {}\n\tname: {}\n\treleaseDate: {}\n\ttotalTracks: {}\n\timg: {}\n\tqtdArtistas: {}\n\ttracks: '.format(
@@ -58,15 +63,15 @@ class Album():
     def getTracks(self):
         return self.tracks
 
-    def existeAlbum(self, id):
-        string_sql = """SELECT COUNT(id) FROM album WHERE id = '{}'""".format(id)
-        registros = self.config.consultaBD(string_sql, [])
-        if (registros[1][0][0] > 0):
+    def existeAlbum(id):
+        string_sql = """SELECT COUNT(id) FROM public.album WHERE id = %s"""
+        registros = config.consultaBD(config, string_sql, [id])
+        if ((registros[1][0][0]) != 0):
             return True
         else:
             return False
 
-class Tracks():
+class Track():
     def __init__(self, id, nome, duracao, numero, explicito, idAlbum, artistas, qtdArtistas):
         self.id = id
         self.nome = nome
@@ -78,18 +83,21 @@ class Tracks():
         self.artistas = artistas
 
     def insertTrack(self):
-        string_sql = 'INSERT INTO public.track (id, name, duration, explicit, track_number, album_id, qtd_artistas) VALUES (%s, %s, %s, %s, %s, %s, %s)'
-        novo_registro = (self.id, self.nome, self.duracao, self.explicito, self.numero, self.idAlbum, self.qtdArtistas)
-        return config.alteraBD(config, string_sql, novo_registro)
+        if not Track.existeTrack(self.id):
+            string_sql = 'INSERT INTO public.track (id, name, duration, explicit, track_number, album_id, qtd_artistas) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+            novo_registro = (self.id, self.nome, self.duracao, self.explicito, self.numero, self.idAlbum, self.qtdArtistas)
+            return config.alteraBD(config, string_sql, novo_registro)
+        else:
+            return 'Existe Track'
 
     def printTrack(self):
         print('\t\t[TRACK]-----------\n\t\tid: {}\n\t\tNome: {}\n\t\tDuracao: {}\n\t\tTrackNumber: {}\n\t\tExplicito: {}\n\t\tAlbumID: {}\n\t\tQtdArtistas: {}\n\t\tArtistas: {}\n'.format(
             self.id, self.nome, self.duracao, self.numero, self.explicito, self.idAlbum, self.qtdArtistas, self.artistas))
 
-    def existeTracks(self, id):
-        string_sql = """SELECT COUNT(id) FROM tracks WHERE id = '{}'""".format(id)
-        registros = self.config.consultaBD(string_sql, [])
-        if (registros[1][0][0] > 0):
+    def existeTrack(id):
+        string_sql = """SELECT COUNT(id) FROM public.track WHERE id = %s"""
+        registros = config.consultaBD(config, string_sql, [id])
+        if ((registros[1][0][0]) != 0):
             return True
         else:
             return False
