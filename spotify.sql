@@ -3,7 +3,7 @@ CREATE TABLE artist(
     name VARCHAR(100) NOT NULL,
     followers int NOT NULL,
     popularity smallint NOT NULL,
-    img VARCHAR(40) NOT NULL
+    img VARCHAR(64) NOT NULL
 );
 -- SELECT * FROM artist;
 CREATE TABLE album(
@@ -11,7 +11,8 @@ CREATE TABLE album(
     name VARCHAR(100) NOT NULL,
     release_date DATE NOT NULL,
     qtd_artists smallint NOT NULL,
-    img VARCHAR(40) NOT NULL
+    qtd_tracks smallint NOT NULL,
+    img VARCHAR(64) NOT NULL
 );
 -- SELECT * FROM album;
 -- INSERT INTO album(id, name, release_date, qtd_artists, img)
@@ -22,8 +23,8 @@ CREATE TABLE track(
     name VARCHAR(100) NOT NULL,
     duration int NOT NULL,
     explicit BOOLEAN NOT NULL,
-    --img VARCHAR(40) NOT NULL,
     track_number smallint NOT NULL,
+    qtd_artistas smallint NOT NULL,
     album_id VARCHAR(22) NOT NULL
 );
 -- SELECT * FROM track;

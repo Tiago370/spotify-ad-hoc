@@ -110,14 +110,16 @@ if __name__ == "__main__":
         print('[{}] -- {} --INICIO--'.format(index, idArtista))
         artista = sessao.getArtist(idArtista)
         listaArtistas.append(artista)
+        print('INSERT ARTIST ',artista.insertArtista())
         listaAlbums = sessao.getAlbums(idArtista)
-        # print('AQUI')
-        # print(len(listaAlbums))
         for album in listaAlbums:
             # album.printAlbum()
-            album.setTracks(sessao.getTracks(album.id))
+            listaTracks = sessao.getTracks(album.id)
+            album.setTracks(listaTracks)
+            print('INSERT ALBUM ',album.insertAlbum())
+            for track in listaTracks:
+                print('INSERT TRACK ',track.insertTrack())
         artista.setAlbums(listaAlbums)
-        print(artista.insertArtista())
         print('[{}] -- {} --FIM--'.format(index, idArtista))
 
     # for artista in listaArtistas:
