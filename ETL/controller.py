@@ -66,7 +66,11 @@ class Spotify():
                         objArtista = self.getArtist(artista['id'])
                         objArtista.insertArtista()
                     artistas.append(artista['id'])
-                listaAlbums.append(Album(album['id'], album['name'], album['release_date'], album['total_tracks'], artistas, imagem, len(artistas)))
+
+                # Caso seja somente ano lancamento somente
+                dataLancamento = album['release_date']+'-01-01' if len(album['release_date']) == 4 else album['release_date']
+
+                listaAlbums.append(Album(album['id'], album['name'], dataLancamento, album['total_tracks'], artistas, imagem, len(artistas)))
             if not resultado['next']:
                 completo = True
             else:
