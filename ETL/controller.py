@@ -5,6 +5,8 @@ import time
 import requests
 import json
 from modelo import Album, Track, Artist
+import logging
+import threading
 
 class Spotify():
     def __init__(self, client, secret):
@@ -106,25 +108,25 @@ class Spotify():
                 offset += 20
         return listaTracks
 
-if __name__ == "__main__":
-    load_dotenv()
-    client = os.getenv('CLIENT')
-    secret = os.getenv('SECRET')
-    sessao = Spotify(client, secret)
+def separa(lista, parts):
+    k, m = divmod(len(lista), parts)
+    return (lista[i*k+min(i, m):(i+1)*k+min(i+1, m)] for i in range(parts))
 
-    listaArtistas = list()
+
+def leIdArtistas(arquivo, partes):
     listaIdArtista = list()
-
-    with open("teste.txt") as file_in:
+    with open(arquivo) as file_in:
         for line in file_in:
             listaIdArtista.append(line.strip())
-    
-    # listaIdArtista = ['5zNOI87gG4RttFmYAZWaxQ']
+    return list(separa(listaIdArtista, partes))
+
+
+def thread_function(num, sessao, listaIdArtista):
+    logging.info("Thread [%d]: Executando", num)
 
     for index, idArtista in enumerate(listaIdArtista):
         print('[{}] -- {} --INICIO--'.format(index, idArtista))
         artista = sessao.getArtist(idArtista)
-        listaArtistas.append(artista)
         print('INSERT ARTIST [{}] - '.format(artista.id),artista.insertArtista())
         listaAlbums = sessao.getAlbums(idArtista)
         for album in listaAlbums:
@@ -136,11 +138,34 @@ if __name__ == "__main__":
         artista.setAlbums(listaAlbums)
         print('[{}] -- {} --FIM--'.format(index, idArtista))
 
-    # for artista in listaArtistas:
-    #     artista.printArtista()
-    #     print('AQUI')
-    #     print(artista.insertArtista())
-    #     for album in artista.albums:
-    #         album.printAlbum()
-    #         for track in album.tracks:
-    #             track.printTrack()
+    logging.info("Thread [%d]: Finalizando", num)
+
+def main():
+
+    load_dotenv()
+    client = os.getenv('CLIENT')
+    secret = os.getenv('SECRET')
+    sessao = Spotify(client, secret)
+    quantidadeThreads = 30
+
+    # Definicoes logging
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
+
+    threads = list()
+    listaIdArtista = leIdArtistas("./ETL/teste.txt", quantidadeThreads)
+
+    for num, parte in enumerate(listaIdArtista):
+        logging.info("Main: thread [%d]: Criada e Iniciada", num)
+        x = threading.Thread(target=thread_function, args=(num, sessao, parte))
+        threads.append(x)
+        x.start()
+
+    for index, thread in enumerate(threads):
+        logging.info("Main: before joining thread [%d].", index)
+        thread.join()
+        logging.info("Main: thread [%d] done.", index)
+
+
+if __name__ == "__main__":
+    main()
