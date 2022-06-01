@@ -66,3 +66,31 @@ class config:
                 conn.close()
         return (colnames, registros)
 
+    def insertArtistaGenres(self, string_SQL_artista, string_SQL_generos, dados_artista, listaGeneros, idArtista):
+        # iniciar a inserção do registro
+        # iniciar a conexo vazia
+        conn = None
+        try:
+            # abrir a conexão
+            conexao=psycopg2.connect(config.setParametros(self).dadosconexao)
+            # abrir a sessão transação começa aqui
+            sessao = conexao.cursor()
+            # Executor o comando em memoria RAM
+            sessao.execute(string_SQL_artista, dados_artista)
+            # Executar a inserção dos produtos na memoria RAM - TABLA ORDERDETAILS
+            print(10*'-')
+            print(string_SQL_generos)
+            print(10*'-')
+            for genero in listaGeneros:
+                sessao.execute(string_SQL_generos, (idArtista, genero))
+            # Comitar TODAS as inserções - fechar a transação
+            conexao.commit()
+            # Encerrar a sessão
+            sessao.close()
+
+        except psycopg2.Error:
+            return psycopg2.Error
+        finally:
+            if conn is not None:
+                conn.close()
+        return 'sucesso'

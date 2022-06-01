@@ -6,7 +6,6 @@ CREATE TABLE artist(
     img VARCHAR(64) NOT NULL
 );
 
--- SELECT * FROM artist;
 CREATE TABLE album(
     id VARCHAR(22) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -26,6 +25,15 @@ CREATE TABLE track(
     album_id VARCHAR(22) NOT NULL,
     FOREIGN KEY (album_id) REFERENCES album (id)
 );
+
+
+CREATE TABLE artist_genres(
+    artist_id VARCHAR(22) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_AA primary key (artist_id, album_id),
+    FOREIGN KEY (album_id) REFERENCES album (id)
+);
+
 
 -- SELECT * FROM album;
 -- INSERT INTO album(id, name, release_date, qtd_artists, img)

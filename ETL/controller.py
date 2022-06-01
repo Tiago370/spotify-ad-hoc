@@ -70,7 +70,7 @@ class Spotify():
                 # Caso seja somente ano lancamento somente
                 dataLancamento = album['release_date']+'-01-01' if len(album['release_date']) == 4 else album['release_date']
 
-                listaAlbums.append(Album(album['id'], album['name'], dataLancamento, album['total_tracks'], artistas, imagem, len(artistas)))
+                listaAlbums.append(Album(album['id'], idArtist, album['name'], dataLancamento, album['total_tracks'], artistas, imagem, len(artistas)))
             if not resultado['next']:
                 completo = True
             else:
@@ -121,15 +121,15 @@ if __name__ == "__main__":
         print('[{}] -- {} --INICIO--'.format(index, idArtista))
         artista = sessao.getArtist(idArtista)
         listaArtistas.append(artista)
-        print('INSERT ARTIST ',artista.insertArtista())
+        print('INSERT ARTIST [{}] - '.format(artista.id),artista.insertArtista())
         listaAlbums = sessao.getAlbums(idArtista)
         for album in listaAlbums:
             # album.printAlbum()
             listaTracks = sessao.getTracks(album.id)
             album.setTracks(listaTracks)
-            print('INSERT ALBUM ',album.insertAlbum())
+            print('\tINSERT ALBUM [{}] - '.format(album.id),album.insertAlbum())
             for track in listaTracks:
-                print('INSERT TRACK ',track.insertTrack())
+                print('\t\tINSERT TRACK [{}] - '.format(track.id),track.insertTrack())
         artista.setAlbums(listaAlbums)
         print('[{}] -- {} --FIM--'.format(index, idArtista))
 
