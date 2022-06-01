@@ -50,3 +50,4 @@ CREATE TABLE artist_track(
     CONSTRAINT fk_track FOREIGN KEY (id_track) REFERENCES track(id),
     CONSTRAINT pk_artistTrack PRIMARY KEY (id_artist, id_track)
 );
+
