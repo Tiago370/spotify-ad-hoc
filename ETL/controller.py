@@ -79,7 +79,7 @@ class Spotify():
                 offset += 20
         return listaAlbums
 
-    def getTracks(self, idAlbum):
+    def getTracks(self, idAlbum, idArtist):
         offset = 0
         completo = False
         listaTracks = list()
@@ -94,7 +94,10 @@ class Spotify():
                     if not Artist.existeArtista(artista['id']):
                         objArtista = self.getArtist(artista['id'])
                         objArtista.insertArtista()
-                    artistas.append(artista['id'])
+                    artistas.append({
+                        'id': artista['id'],
+                        'isOwner': True if artista['id'] == idArtist else False
+                    })
                 listaTracks.append(Track(track['id'], track['name'], track['duration_ms'], track['track_number'], track['explicit'], idAlbum, artistas, len(artistas)))
             if not resultado['next']:
                 completo = True
@@ -125,7 +128,7 @@ if __name__ == "__main__":
         print('INSERT ARTIST [{}] - '.format(artista.id),artista.insertArtista())
         listaAlbums = sessao.getAlbums(idArtista)
         for album in listaAlbums:
-            listaTracks = sessao.getTracks(album.id)
+            listaTracks = sessao.getTracks(album.id, idArtista)
             album.setTracks(listaTracks)
             print('\tINSERT ALBUM [{}] - '.format(album.id),album.insertAlbum())
             for track in listaTracks:
