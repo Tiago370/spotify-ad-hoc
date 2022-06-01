@@ -155,7 +155,7 @@ def main():
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
 
     threads = list()
-    listaIdArtista = leIdArtistas("inserir.txt", quantidadeThreads)
+    listaIdArtista = leIdArtistas("./ETL/inserir.txt", quantidadeThreads)
 
     for num, parte in enumerate(listaIdArtista):
         logging.info("Main: thread [%d]: Criada e Iniciada", num)
