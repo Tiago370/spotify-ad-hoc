@@ -6,6 +6,13 @@ CREATE TABLE artist(
     img VARCHAR(64) NOT NULL
 );
 
+CREATE TABLE artist_genres(
+    id_artist varchar(22),
+    genre varchar(100),
+    CONSTRAINT pk_genre PRIMARY KEY (id_artist, genre),
+    CONSTRAINT id_fk FOREIGN KEY(id_artist) REFERENCES artist(id)
+);
+
 CREATE TABLE album(
     id VARCHAR(22) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -26,13 +33,6 @@ CREATE TABLE track(
     FOREIGN KEY (album_id) REFERENCES album (id)
 );
 
-
-CREATE TABLE artist_genres(
-    artist_id VARCHAR(22) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    CONSTRAINT pk_AA primary key (artist_id, album_id),
-    FOREIGN KEY (album_id) REFERENCES album (id)
-);
 
 
 -- SELECT * FROM album;
