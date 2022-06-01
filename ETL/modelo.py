@@ -23,8 +23,6 @@ class Artist():
             string_SQL_artista = 'INSERT INTO public.artist (id, name, followers, popularity, img) VALUES (%s, %s, %s, %s, %s)'
             dados_artista = (self.id, self.nome, self.followers, self.popularity, self.img)
             string_SQL_generos = 'INSERT INTO public.artist_genres (id_artist, genre) VALUES (%s, %s)'
-            # Insere os generos associados
-            #  def insertArtistaGenres(self, string_SQL_artista, string_SQL_generos, dados_artista, listaGeneros, idArtista):
             return config.insertArtistaGenres(config, string_SQL_artista, string_SQL_generos, dados_artista, self.genres, self.id)
         else:
             return 'Existe Artista'
@@ -38,7 +36,7 @@ class Artist():
             return False
 
 class Album():
-    def __init__(self, id, idOwner, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
+    def __init__(self, id, nome, releaseDate, totalTracks, artistas, img, qtdArtistas):
         self.id = id
         self.nome = nome
         self.releaseDate = releaseDate
@@ -46,29 +44,28 @@ class Album():
         self.img = img
         self.qtdArtistas = qtdArtistas
         self.artistas = artistas
-        self.idOwner = idOwner
         self.tracks = list()
+
+    def insertAlbumOld(self):
+        if not Album.existeAlbum(self.id):
+            string_sql = 'INSERT INTO public.album (id, name, release_date, qtd_artists, qtd_tracks, img) VALUES (%s, %s, %s, %s, %s, %s)'
+            novo_registro = (self.id, self.nome, self.releaseDate, self.qtdArtistas, self.totalTracks, self.img)
+            return config.alteraBD(config, string_sql, novo_registro)
+        else:
+            return 'Existe Album'
 
     def insertAlbum(self):
         if not Album.existeAlbum(self.id):
-            string_sql = 'INSERT INTO public.album (id, name, release_date, qtd_artists, qtd_tracks, img) VALUES (%s, %s, %s, %s, %s, %s)'
-            novo_registro = (self.id, self.nome, self.releaseDate, self.qtdArtistas, self.totalTracks, self.img)
-            return config.alteraBD(config, string_sql, novo_registro)
+            string_SQL_album = 'INSERT INTO public.album (id, name, release_date, qtd_artists, qtd_tracks, img) VALUES (%s, %s, %s, %s, %s, %s)'
+            dados_album = (self.id, self.nome, self.releaseDate, self.qtdArtistas, self.totalTracks, self.img)
+            string_SQL_artistas = 'INSERT INTO public.artist_album (id_artist, id_album, main_artist) VALUES (%s, %s, %s)'
+            return config.insertAlbumsArtists(config, string_SQL_album, string_SQL_artistas, dados_album, self.artistas, self.id)
         else:
-            return 'Existe Album'
-
-    def insertAlbumNovo(self):
-        if not Album.existeAlbum(self.id):
-            string_sql = 'INSERT INTO public.album (id, name, release_date, qtd_artists, qtd_tracks, img) VALUES (%s, %s, %s, %s, %s, %s)'
-            novo_registro = (self.id, self.nome, self.releaseDate, self.qtdArtistas, self.totalTracks, self.img)
-            return config.alteraBD(config, string_sql, novo_registro)
-        else:
-            return 'Existe Album'
-
+            return 'Existe Artista'
 
     def printAlbum(self):
-        print('\t[ALBUM]-----------\n\tid: {}\n\tname: {}\n\treleaseDate: {}\n\ttotalTracks: {}\n\timg: {}\n\tqtdArtistas: {}\n\ttracks: '.format(
-            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.qtdArtistas))
+        print('\t[ALBUM]-----------\n\tid: {}\n\tname: {}\n\treleaseDate: {}\n\ttotalTracks: {}\n\timg: {}\n\tArtistas: {}\n\tqtdArtistas: {}\n\ttracks: '.format(
+            self.id, self.nome, self.releaseDate, self.totalTracks, self.img, self.artistas, self.qtdArtistas))
 
     def setTracks(self, tracks):
         self.tracks = tracks

@@ -65,12 +65,13 @@ class Spotify():
                     if not Artist.existeArtista(artista['id']):
                         objArtista = self.getArtist(artista['id'])
                         objArtista.insertArtista()
-                    artistas.append(artista['id'])
-
+                    artistas.append({
+                        'id': artista['id'],
+                        'isOwner': True if artista['id'] == idArtist else False
+                    })
                 # Caso seja somente ano lancamento somente
                 dataLancamento = album['release_date']+'-01-01' if len(album['release_date']) == 4 else album['release_date']
-
-                listaAlbums.append(Album(album['id'], idArtist, album['name'], dataLancamento, album['total_tracks'], artistas, imagem, len(artistas)))
+                listaAlbums.append(Album(album['id'], album['name'], dataLancamento, album['total_tracks'], artistas, imagem, len(artistas)))
             if not resultado['next']:
                 completo = True
             else:
@@ -124,7 +125,6 @@ if __name__ == "__main__":
         print('INSERT ARTIST [{}] - '.format(artista.id),artista.insertArtista())
         listaAlbums = sessao.getAlbums(idArtista)
         for album in listaAlbums:
-            # album.printAlbum()
             listaTracks = sessao.getTracks(album.id)
             album.setTracks(listaTracks)
             print('\tINSERT ALBUM [{}] - '.format(album.id),album.insertAlbum())

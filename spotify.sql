@@ -22,6 +22,15 @@ CREATE TABLE album(
     img VARCHAR(64) NOT NULL
 );
 
+CREATE TABLE artist_album(
+    id_artist VARCHAR(22),
+    id_album VARCHAR(22),
+    main_artist BOOLEAN,
+    CONSTRAINT fk_artist FOREIGN KEY(id_artist) REFERENCES artist(id),
+    CONSTRAINT fk_album FOREIGN KEY (id_album) REFERENCES album(id),
+    CONSTRAINT pk_artistAlbum PRIMARY KEY (id_artist, id_album)
+);
+
 CREATE TABLE track(
     id VARCHAR(22) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -33,18 +42,11 @@ CREATE TABLE track(
     FOREIGN KEY (album_id) REFERENCES album (id)
 );
 
-
-
--- SELECT * FROM album;
--- INSERT INTO album(id, name, release_date, qtd_artists, img)
--- VALUES('76N6imyjQ9h5p2NzakHT32', 'M.I.A.M.I.', '2004-08-03', 1, 'ab67616d0000b27300650b5e6be3af579ae18e7c');
-
-
--- SELECT * FROM track;
-CREATE TABLE artist_album(
-    artist_id VARCHAR(22) NOT NULL,
-    album_id VARCHAR(22) NOT NULL,
-    main_artist BOOLEAN NOT NULL,
-    CONSTRAINT pk_AA primary key(artist_id, album_id)
+CREATE TABLE artist_track(
+    id_artist VARCHAR(22),
+    id_track VARCHAR(22),
+    main_artist BOOLEAN,
+    CONSTRAINT fk_artist FOREIGN KEY(id_artist) REFERENCES artist(id),
+    CONSTRAINT fk_track FOREIGN KEY (id_track) REFERENCES track(id),
+    CONSTRAINT pk_artistTrack PRIMARY KEY (id_artist, id_track)
 );
--- SELECT * FROM artist_album;
