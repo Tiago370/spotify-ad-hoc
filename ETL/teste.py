@@ -12,8 +12,8 @@ def leIdArtistas(arquivo):
 
 if __name__ == "__main__":
 
-    listaIdArtista = leIdArtistas("./ETL/teste.txt")
-    listaIdInputados = leIdArtistas("./ETL/inputados.txt")
+    listaIdArtista = leIdArtistas("teste.txt")
+    listaIdInputados = leIdArtistas("inputados.txt")
     listaDiferentes = list()
     for artista in listaIdArtista:
         if artista not in listaIdInputados:
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     print('Tam listaIdInputados = ',len(listaIdInputados))
     print('Tam listaDiferentes = ',len(listaDiferentes))
 
-    with open('./ETL/inserir.txt', 'w') as f:
+    with open('inserir.txt', 'w') as f:
         for item in listaDiferentes:
             f.write(item+'\n')
 

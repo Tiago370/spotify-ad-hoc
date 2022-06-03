@@ -46,7 +46,7 @@ class Spotify():
         return json_object
 
     def getArtist(self, idArtist):
-        artista =  self.makeRequest('artists/{}'.format(idArtist))
+        artista =  self.makeRequest('artists/{}'.format(str(idArtist)))
         imagem = artista['images'][0]['url'] if len(artista['images']) > 0 else ''
         return Artist(artista['id'], artista['name'], artista['followers']['total'], artista['popularity'], imagem, artista['genres'])
 
