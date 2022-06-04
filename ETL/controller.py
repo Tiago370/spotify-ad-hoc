@@ -148,7 +148,7 @@ def main():
     client = os.getenv('CLIENT')
     secret = os.getenv('SECRET')
     
-    quantidadeThreads = 20
+    quantidadeThreads = 15
 
     # Definicoes logging
     format = "%(asctime)s: %(message)s"
